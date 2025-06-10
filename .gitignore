@@ -1,0 +1,4 @@
+# .gitignore
+traces/
+*.log
+*.bak
