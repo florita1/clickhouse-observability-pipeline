@@ -29,6 +29,20 @@ services:
       - ./tempo.yaml:/etc/tempo.yaml
       - ./traces:/tmp/tempo/traces
 
+  clickhouse:
+    image: clickhouse/clickhouse-server:latest
+    ports:
+      - "8123:8123"   # HTTP interface
+      - "9000:9000"   # Native TCP interface (optional)
+    environment:
+      - CLICKHOUSE_DB=default
+      - CLICKHOUSE_USER=default
+      - CLICKHOUSE_PASSWORD=clickhouse
+    volumes:
+      - clickhouse-data:/var/lib/clickhouse
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+
 volumes:
   grafana-storage:
+  clickhouse-data:
 
