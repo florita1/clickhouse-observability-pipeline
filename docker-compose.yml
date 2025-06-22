@@ -23,7 +23,6 @@ services:
     command: ["-config.file=/etc/tempo.yaml"]
     ports:
       - "3200:3200"   # Tempo HTTP UI/API
-      - "4318:4318"   # OTLP HTTP
     volumes:
       - ./tempo.yaml:/etc/tempo.yaml
       - ./traces:/tmp/tempo/traces
@@ -45,7 +44,7 @@ services:
     image: grafana/alloy:latest
     command: ["run", "/etc/alloy/config.alloy"]
     ports:
-      - "4317:4317"     # OTLP gRPC receiver (Go app sends here)
+      - "4318:4318"     # OTLP gRPC receiver (Go app sends here)
     volumes:
       - ./config.alloy:/etc/alloy/config.alloy
 
