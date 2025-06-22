@@ -23,7 +23,6 @@ services:
     command: ["-config.file=/etc/tempo.yaml"]
     ports:
       - "3200:3200"   # Tempo HTTP UI/API
-      - "4317:4317"   # OTLP gRPC
       - "4318:4318"   # OTLP HTTP
     volumes:
       - ./tempo.yaml:/etc/tempo.yaml
@@ -41,6 +40,14 @@ services:
     volumes:
       - clickhouse-data:/var/lib/clickhouse
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+
+  alloy:
+    image: grafana/alloy:latest
+    command: ["run", "/etc/alloy/config.alloy"]
+    ports:
+      - "4317:4317"     # OTLP gRPC receiver (Go app sends here)
+    volumes:
+      - ./config.alloy:/etc/alloy/config.alloy
 
 volumes:
   grafana-storage:
