@@ -27,3 +27,13 @@ This project includes full OpenTelemetry tracing across the ingestion pipeline. 
 
 Traces enable performance analysis, debugging, and latency breakdown across services.
 
+## 📊 Prometheus Metrics
+
+The observability stack includes Prometheus scraping custom metrics from the ingestion service. Below is a Prometheus graph showing `ingestion_generated_events_total`, a counter exposed by the Go-based ingestion app to track synthetic event generation over time.
+
+![Prometheus ingestion metrics](screenshots/prom.png)
+
+- Metric: `ingestion_generated_events_total`
+- Source: Go ingestion service (`host.docker.internal:8080`)
+- Scraped by: Prometheus via Alloy
+- Use case: Verifies ingestion activity and enables real-time pipeline monitoring
